@@ -15,11 +15,9 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Service
 public class UserService {
@@ -32,8 +30,8 @@ public class UserService {
                 .setDefaultRequestConfig(RequestConfig.custom()
                         .setCookieSpec(CookieSpecs.STANDARD).build())
                 .build();
-
-        URIBuilder uriBuilder = new URIBuilder("https://api.twitter.com/2/users/{usernames}");
+        String uri = "https://twitter.com/2/users/" + usernames;
+        URIBuilder uriBuilder = new URIBuilder(uri);
         ArrayList<NameValuePair> queryParameters;
         queryParameters = new ArrayList<>();
         queryParameters.add(new BasicNameValuePair("usernames", usernames));
